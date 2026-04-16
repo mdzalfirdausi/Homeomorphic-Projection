@@ -9,7 +9,7 @@ torch.set_default_dtype(torch.float64)
 
 
 ###################################################################
-# Unsupervised Training for Minimum-Distortion-Homeomoprhic Mapping
+# Unsupervised Training for Minimum-Distortion-Homeomoprhic Mapping 
 ###################################################################
 def training(model, constraints, optimizer, scheduler, x_tensor, t_tensor, args):
     batch_size = args['batch_size']
