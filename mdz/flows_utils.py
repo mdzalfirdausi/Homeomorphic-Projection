@@ -262,7 +262,7 @@ class LinearNormalized(nn.Linear):
 ###################################################################
 
 class LUInvertibleMM(nn.Module):
-    """ An implementation of a invertible matrix multiplication 
+    """ An implementation of a invertible matrix multiplication
     layer from Glow: Generative Flow with Invertible 1x1 Convolutions
     (https://arxiv.org/abs/1807.03039).
     """

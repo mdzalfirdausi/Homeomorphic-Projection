@@ -18,7 +18,7 @@ torch.set_default_dtype(torch.float64)
 defaults = config()
 
 
-# def main():
+# def main(): 
 #     args = config()
 #     args['probType'] = 'acopf'
 #     # run_instance(args) 
@@ -54,36 +54,6 @@ def load_instance(args):
         with open(filepath, 'rb') as f:
             dataset = pickle.load(f)
         data = ACOPFProblem(dataset, test_size)
-    elif prob_type in ['qp']:
-        filepath = os.path.join('datasets', prob_type, "random_{}_{}_dataset_var{}_ineq{}_eq{}_ex{}".format(
-            seed, prob_type, args['probSize'][0], args['probSize'][1], args['probSize'][2], args['probSize'][3]))
-        with open(filepath, 'rb') as f:
-            dataset = pickle.load(f)
-        data = QPProblem(dataset, test_size)
-    elif prob_type in ['convex_qcqp']:
-        filepath = os.path.join('datasets', prob_type, "random_{}_{}_dataset_var{}_ineq{}_eq{}_ex{}".format(
-            seed, prob_type, args['probSize'][0], args['probSize'][1], args['probSize'][2], args['probSize'][3]))
-        with open(filepath, 'rb') as f:
-            dataset = pickle.load(f)
-        data = QCQPProbem(dataset, test_size)
-    elif prob_type in ['nonconvex']:
-        filepath = os.path.join('datasets', prob_type, "random_{}_{}_dataset_var{}_ineq{}_eq{}_ex{}".format(
-            seed, prob_type, args['probSize'][0], args['probSize'][1], args['probSize'][2], args['probSize'][3]))
-        with open(filepath, 'rb') as f:
-            dataset = pickle.load(f)
-        data = NonconvexProblem(dataset, test_size)
-    elif prob_type in ['socp']:
-        filepath = os.path.join('datasets', prob_type, "random_{}_{}_dataset_var{}_ineq{}_eq{}_ex{}".format(
-            seed, prob_type, args['probSize'][0], args['probSize'][1], args['probSize'][2], args['probSize'][3]))
-        with open(filepath, 'rb') as f:
-            dataset = pickle.load(f)
-        data = SOCPProbem(dataset, test_size)
-    elif prob_type in ['sdp']:
-        filepath = os.path.join('datasets', prob_type, "random_{}_{}_dataset_var{}_ineq{}_eq{}_ex{}".format(
-            seed, prob_type, args['probSize'][0], args['probSize'][1], args['probSize'][2], args['probSize'][3]))
-        with open(filepath, 'rb') as f:
-            dataset = pickle.load(f)
-        data = SDPProbem(dataset, test_size)
     else:
         NotImplementedError
         print("Not Implement Instance")
@@ -176,7 +146,6 @@ def train_mdh_mapping(data, args, save_dir):
                                                                        paras)
     plot_convergence(volume_list, penalty_list, dist_list, trans_list, save_dir)
     torch.save(model, os.path.join(save_dir, 'mapping.pth'))
-
 
 def test_mdh_mapping(data, save_dir, args):
     paras = args['mapping_para']

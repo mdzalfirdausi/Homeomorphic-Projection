@@ -1060,7 +1060,7 @@ class ACOPFProblem:
             self.qmin - qg,
             vm - self.vmax,
             self.vmin - vm,
-            self.branch_ineq_resid(X, Y)
+            # self.branch_ineq_resid(X, Y)
         ], dim=1)
         return torch.clamp(resids, 0)
 
