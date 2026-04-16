@@ -32,9 +32,9 @@ def config():
 
 
     defaults['nn_para'] = \
-        {'training': False, 'testing': True,
+        {'training': True, 'testing': False,
          'approach': 'unsupervise',
-        'total_iteration': 10000,
+        'total_iteration': 1000,
         'batch_size': 512,
         'lr': 1e-3,
         'lr_decay': 0.9,
@@ -47,7 +47,7 @@ def config():
 
     defaults['proj_para'] = \
         {'useTestCorr': False,    # post-process for infeasible solutions
-        'corrMode': 'partial',    # equality completion
+        'corrMode': 'partial',    # equality completion 
         'corrTestMaxSteps': 100,  # steps for D-Proj
         'corrBis': 0.9,           # steps for bisection
         'corrEps': 1e-5,          # tolerance for constraint violation

@@ -10,33 +10,42 @@ from training_all import *
 DEVICE = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
 defaults = config()
 
+# def main():
+#     args = config()
+#     args['probType'] = 'acopf'
+#     args['projType'] = 'H_Bis'  # Specify the projection method here
+#     for prob in ['qp']:
+#         if prob == 'acopf':
+#             for size in [[30, 1000], 
+#                          [118, 2000]]:
+#                 for proj in ['H_Bis']:
+#                     args['opfSize'] = size
+#                     args['projType'] = proj
+#                     args['probType'] = prob
+#                     test_single(args)
+#         else:
+#             for size in [[200, 100, 100, 20000]]:
+#                 for proj in ['H_Bis']:
+#                     args['probSize'] = size
+#                     args['projType'] = proj
+#                     args['probType'] = prob
+#                     test_single(args)
+                    
 def main():
     args = config()
-    for prob in ['qp']:
-        if prob == 'acopf':
-            for size in [[30, 10000], 
-                         [118, 20000]]:
-                for proj in ['H_Bis']:
-                    args['opfSize'] = size
-                    args['projType'] = proj
-                    args['probType'] = prob
-                    test_single(args)
-        else:
-            for size in [[200, 100, 100, 20000]]:
-                for proj in ['H_Bis']:
-                    args['probSize'] = size
-                    args['projType'] = proj
-                    args['probType'] = prob
-                    test_single(args)
-                    
-
+    args['probType'] = 'acopf'
+    args['projType'] = 'H_Bis'  # Specify the projection method here
+    
+    # Run for both the 30-bus and 118-bus datasets
+    for size in [[30, 10000], [118, 20000]]:
+        args['opfSize'] = size
+        test_single(args)
 
 
 def test_single(args):
     data, result_save_dir, model_save_dir = load_instance(args)
     test_nn_solver(data, args, model_save_dir, result_save_dir)
     test_inf_time(data, args, model_save_dir, result_save_dir)
-
 
 
 

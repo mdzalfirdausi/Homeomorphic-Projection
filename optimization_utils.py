@@ -10,7 +10,7 @@ DEVICE = torch.device("cuda") if torch.cuda.is_available() else torch.device("cp
 torch.set_default_dtype(torch.float64)
 
 ###################################################################
-# Base PROBLEM
+# Base PROBLEM 
 ###################################################################
 class BaseProblem:
     def __init__(self, dataset, test_size):

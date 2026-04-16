@@ -18,21 +18,29 @@ torch.set_default_dtype(torch.float64)
 defaults = config()
 
 
+# def main():
+#     args = config()
+#     args['probType'] = 'acopf'
+#     # run_instance(args) 
+#     for prob in ['qp', 'socp', 'convex_qcqp', 'sdp', 'acopf']:
+#         if prob == 'acopf':
+#             for size in [[30, 1000], [118, 2000]]:
+#                 args['opfSize'] = size
+#                 args['probType'] = prob
+#                 run_instance(args)
+#         else:
+#             for size in [[100, 50, 50, 10000],[200, 100, 100, 20000]]:
+#                 args['probSize'] = size
+#                 args['probType'] = prob
+#                 run_instance(args)
 def main():
     args = config()
-    # run_instance(args)
-    for prob in ['qp', 'socp', 'convex_qcqp', 'sdp', 'acopf']:
-        if prob == 'acopf':
-            for size in [[30, 10000], [118, 20000]]:
-                args['opfSize'] = size
-                args['probType'] = prob
-                run_instance(args)
-        else:
-            for size in [[100, 50, 50, 10000],[200, 100, 100, 20000]]:
-                args['probSize'] = size
-                args['probType'] = prob
-                run_instance(args)
-
+    args['probType'] = 'acopf'
+    
+    # Run for both the 30-bus and 118-bus datasets
+    for size in [[30, 10000], [118, 20000]]:
+        args['opfSize'] = size
+        run_instance(args)
 
 def load_instance(args):
     # Load data, and put on GPU if needed
