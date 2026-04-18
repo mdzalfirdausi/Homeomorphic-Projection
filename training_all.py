@@ -306,7 +306,12 @@ def test_nn_solver(data, args, model_save_dir, result_save_dir):
     Xtest = data.testX.to(DEVICE)
     Ytest = data.testY.squeeze().to(DEVICE)
 
-    homeo_mapping = torch.load(os.path.join(model_save_dir, 'mapping.pth'), map_location=DEVICE)
+    # homeo_mapping = torch.load(os.path.join(model_save_dir, 'mapping.pth'), map_location=DEVICE)
+    mapping_path = os.path.join(model_save_dir, 'mapping.pth')
+    if os.path.exists(mapping_path):
+        homeo_mapping = torch.load(mapping_path, map_location=DEVICE)
+    else:
+        homeo_mapping = None
     solver_net = torch.load(os.path.join(model_save_dir, 'solver_net.pth'), map_location=DEVICE)
     epoch_stats = {}
     solver_net.eval()
@@ -337,7 +342,8 @@ def test_nn_solver(data, args, model_save_dir, result_save_dir):
 
 def eval_solution(data, X, Ytarget, solver_net, homeo_mapping, args, prefix, stats):
     solver_net.eval()
-    homeo_mapping.eval()
+    if homeo_mapping is not None:
+        homeo_mapping.eval()
     ### NN solution prediction
     raw_start_time = time.time()
     with torch.no_grad():
@@ -360,26 +366,59 @@ def eval_solution(data, X, Ytarget, solver_net, homeo_mapping, args, prefix, sta
     num_infeasible_prediction = Y_pred_infeasible.shape[0]
     Ycorr = Y.detach().clone()
     print(f'num of infeasible instance {Y_pred_infeasible.shape[0]}')
+    Proj_time = 0.0
     if num_infeasible_prediction > 0:
         cor_start_time = time.time()
+
         if args['proj_para']['useTestCorr']:
             if 'H_Bis' in args['algoType']:
+                if homeo_mapping is None:
+                    raise ValueError("homeo_mapping is required for H_Bis but is None")
                 Yproj, steps = homeo_bisection(homeo_mapping, data, args, Y_pred[infeasible_index], X[infeasible_index])
+
             elif 'G_Bis' in args['algoType']:
+                if homeo_mapping is None:
+                    raise ValueError("homeo_mapping is required for G_Bis but is None")
                 Yproj, steps = gauge_bisection(homeo_mapping, data, args, Y_pred[infeasible_index], X[infeasible_index])
+
             elif 'D_Proj' in args['algoType']:
                 Yproj, steps = diff_projection(data, X[infeasible_index], Y[infeasible_index], args)
+
             elif 'Proj' in args['algoType']:
                 Yproj = data.opt_proj(X[infeasible_index], Y[infeasible_index]).to(Y.device).view(
                     Y_pred_infeasible.shape)
+
             elif 'WS' in args['algoType']:
                 Yproj = data.opt_warmstart(X[infeasible_index], Y[infeasible_index]).to(Y.device).view(
                     Y_pred_infeasible.shape)
+
             else:
                 Yproj = Y_pred_infeasible
+
             Ycorr[infeasible_index] = Yproj
+
         cor_end_time = time.time()
-    Proj_time = cor_end_time - cor_start_time
+        Proj_time = cor_end_time - cor_start_time
+    # if num_infeasible_prediction > 0:
+    #     cor_start_time = time.time()
+    #     if args['proj_para']['useTestCorr']:
+    #         if 'H_Bis' in args['algoType']:
+    #             Yproj, steps = homeo_bisection(homeo_mapping, data, args, Y_pred[infeasible_index], X[infeasible_index])
+    #         elif 'G_Bis' in args['algoType']:
+    #             Yproj, steps = gauge_bisection(homeo_mapping, data, args, Y_pred[infeasible_index], X[infeasible_index])
+    #         elif 'D_Proj' in args['algoType']:
+    #             Yproj, steps = diff_projection(data, X[infeasible_index], Y[infeasible_index], args)
+    #         elif 'Proj' in args['algoType']:
+    #             Yproj = data.opt_proj(X[infeasible_index], Y[infeasible_index]).to(Y.device).view(
+    #                 Y_pred_infeasible.shape)
+    #         elif 'WS' in args['algoType']:
+    #             Yproj = data.opt_warmstart(X[infeasible_index], Y[infeasible_index]).to(Y.device).view(
+    #                 Y_pred_infeasible.shape)
+    #         else:
+    #             Yproj = Y_pred_infeasible
+    #         Ycorr[infeasible_index] = Yproj
+    #     cor_end_time = time.time()
+    # Proj_time = cor_end_time - cor_start_time
 
     make_prefix = lambda x: "{}_{}".format(prefix, x)
     dict_agg(stats, make_prefix('time'), Proj_time + NN_pred_time, op='sum')
