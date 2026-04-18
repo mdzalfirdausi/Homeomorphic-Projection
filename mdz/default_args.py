@@ -5,21 +5,20 @@ def config():
     defaults['probType'] = ['qp', 'socp', 'convex_qcqp', 'sdp', 'acopf'][4]
     defaults['probSize'] = [[100, 50, 50, 10000],
                             [200, 100, 100, 20000]][1]
-    defaults['opfSize'] = [[30,  10000],
-                           [118, 20000]][1]
-    defaults['testSize'] = 1024
+    defaults['opfSize'] = [[89,  10]]
+    defaults['testSize'] = 2
     defaults['saveAllStats'] = False
     defaults['resultsSaveFreq'] = 1000
-    defaults['seed'] = 2023
+    defaults['seed'] = 2026
 
     defaults['mapping_para'] = \
         {'training': True, 'testing': False,
-        'n_samples': 1024,
+        'n_samples': 8,
         't_samples': 10000,
         'bound': [0, 1],
         'scale_ratio': 1,
         'shape': 'square',
-        'total_iteration': 1000,
+        'total_iteration': 100, 
         'batch_size': 512,
         'num_layer': 3,
         'lr': 1e-4,

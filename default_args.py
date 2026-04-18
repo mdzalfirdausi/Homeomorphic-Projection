@@ -8,7 +8,7 @@ def config():
     defaults['opfSize'] = [[118, 8]] #[30,  10000],
     defaults['testSize'] = 1024
     defaults['saveAllStats'] = False
-    defaults['resultsSaveFreq'] = 1000
+    defaults['resultsSaveFreq'] = 10
     defaults['seed'] = 2023
 
     defaults['mapping_para'] = \
@@ -18,7 +18,7 @@ def config():
         'bound': [0, 1],
         'scale_ratio': 1,
         'shape': 'square',
-        'total_iteration': 10000,
+        'total_iteration': 10,
         'batch_size': 512,
         'num_layer': 3,
         'lr': 1e-4,
