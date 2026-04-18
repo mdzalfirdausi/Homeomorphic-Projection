@@ -5,8 +5,7 @@ def config():
     defaults['probType'] = ['qp', 'socp', 'convex_qcqp', 'sdp', 'acopf'][4]
     defaults['probSize'] = [[100, 50, 50, 10000],
                             [200, 100, 100, 20000]][1]
-    defaults['opfSize'] = [[30,  10000],
-                           [118, 20000]][1]
+    defaults['opfSize'] = [[118, 8]] #[30,  10000],
     defaults['testSize'] = 1024
     defaults['saveAllStats'] = False
     defaults['resultsSaveFreq'] = 1000

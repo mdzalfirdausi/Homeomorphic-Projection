@@ -5,8 +5,8 @@
 % optimal generators set-points
 
 %% Include libraries
-addpath(genpath('/Users/priyadonti/MATLAB/matpower6.0'));
-addpath(genpath('/Users/priyadonti/MATLAB/tspopf5.1_maci64'));
+addpath(genpath('M:\master offline\matpower8.0'));
+addpath('data'); % <--- ADD THIS LINE
 %%
 clearvars;
 clc;
@@ -58,7 +58,7 @@ LoadBuses = find(BaseLoadP>0 | BaseLoadP<0);
 
 %% Generate load samples
 disp('Generating load samples');
-NSamples   = 30000;
+NSamples   = 10;
 MaxChangeLoad = 0.1;
 
 CorrCoeff  = 0.5;
@@ -87,16 +87,16 @@ EPS_INTERIOR = 0;
 my_model.bus(:, VMIN) = bus(:, VMIN) + EPS_INTERIOR;
 my_model.bus(:, VMAX) = bus(:, VMAX) - EPS_INTERIOR;
 
-my_model.branch(:,6:8) = 9900; % turn off line flow limits
+% my_model.branch(:,6:8) = 9900; % turn off line flow limits
 save(case_name, "my_model")
 
 mpopt = mpoption('model','ac','opf.ac.solver','MIPS','verbose',0);
 % mpopt = mpoption('model','dc','opf.ac.solver','MIPS','verbose',0);
-parfor_progress(NSamples);
+% parfor_progress(NSamples);
 parfor t = 1:NSamples
     my_model_copy = my_model;
 %     disp(t);
-    parfor_progress;
+    % parfor_progress;
     my_model_copy.bus(LoadBuses, PD) = BaseLoadP(LoadBuses) .* LoadFactor_P(:, t);
     my_model_copy.bus(LoadBuses, QD) = BaseLoadQ(LoadBuses) .* LoadFactor_Q(:, t);
     % solve acopf
@@ -109,11 +109,7 @@ parfor t = 1:NSamples
         Vol(:, t) = vm .* exp(va * 1j);
     end
 end
-parfor_progress(0); 
+% parfor_progress(0); 
 save(file_name, 'Dem', 'Gen', 'Vol', 'Ybus', 'EPS_INTERIOR', ...
     'CorrCoeff','MaxChangeLoad');
 % fprintf('Done with %d iterations \n', t);
-
-
-
-
