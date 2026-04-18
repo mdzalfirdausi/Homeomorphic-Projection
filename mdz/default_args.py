@@ -19,7 +19,7 @@ def config():
         'bound': [0, 1],
         'scale_ratio': 1,
         'shape': 'square',
-        'total_iteration': 10000,
+        'total_iteration': 1000,
         'batch_size': 512,
         'num_layer': 3,
         'lr': 1e-4,
