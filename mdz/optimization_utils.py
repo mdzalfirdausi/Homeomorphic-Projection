@@ -960,7 +960,7 @@ class ACOPFProblem:
 
         ## Define train/valid/test split
         # self.valid_frac = valid_frac
-        # self.test_frac = test_frac
+        # self.test_frac = test_frac 
 
         ### Load data
         X = np.concatenate([np.real(demand), np.imag(demand)], axis=1)

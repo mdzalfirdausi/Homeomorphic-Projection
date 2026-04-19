@@ -139,7 +139,7 @@ def train_mdh_mapping(data, args, save_dir):
     t_train_tensor = torch.rand([paras['t_samples'], t_dim]).to(device=DEVICE)
     t_train_tensor = t_train_tensor * (data.input_U - data.input_L) + data.input_L
 
-    #### Unsupervised Training for Homeo Mapping
+    #### Unsupervised Training for Homeo Mapping 
     model, volume_list, penalty_list, dist_list, trans_list = training(model, data, 
                                                                        optimizer, scheduler,
                                                                        x_train_tensor, t_train_tensor, 
