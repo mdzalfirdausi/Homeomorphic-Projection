@@ -38,7 +38,7 @@ def main():
     args['probType'] = 'acopf'
     
     # Run for both the 30-bus and 118-bus datasets
-    for size in [[89, 10]]:
+    for size in [[30, 10000]]:
         args['opfSize'] = size
         run_instance(args)
 
