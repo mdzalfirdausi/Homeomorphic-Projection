@@ -5,21 +5,21 @@ def config():
     defaults['probType'] = ['qp', 'socp', 'convex_qcqp', 'sdp', 'acopf'][4]
     defaults['probSize'] = [[100, 50, 50, 10000],
                             [200, 100, 100, 20000]][1]
-    defaults['opfSize'] = [89,  10]
-    defaults['testSize'] = 2
-    defaults['saveAllStats'] = False
-    defaults['resultsSaveFreq'] = 1000
+    defaults['opfSize'] = [30,  10000]
+    defaults['testSize'] = 1000
+    defaults['saveAllStats'] = True
+    defaults['resultsSaveFreq'] = 500
     defaults['seed'] = 2026
 
     defaults['mapping_para'] = \
-        {'training': True, 'testing': False,
-        'n_samples': 8,
+        {'training': True, 'testing': True,
+        'n_samples': 1024,
         't_samples': 10000,
         'bound': [0, 1],
         'scale_ratio': 1,
         'shape': 'square',
-        'total_iteration': 100, 
-        'batch_size': 512,
+        'total_iteration': 2000, 
+        'batch_size': 1024,
         'num_layer': 3,
         'lr': 1e-4,
         'lr_decay': 0.9,
@@ -31,10 +31,10 @@ def config():
 
 
     defaults['nn_para'] = \
-        {'training': True, 'testing': False,
+        {'training': True, 'testing': True,
          'approach': 'unsupervise',
-        'total_iteration': 1000,
-        'batch_size': 512,
+        'total_iteration': 5000,
+        'batch_size': 1024,
         'lr': 1e-3,
         'lr_decay': 0.9,
         'lr_decay_step': 1000,
@@ -45,7 +45,7 @@ def config():
 
 
     defaults['proj_para'] = \
-        {'useTestCorr': False,    # post-process for infeasible solutions
+        {'useTestCorr': True,    # post-process for infeasible solutions
         'corrMode': 'partial',    # equality completion  
         'corrTestMaxSteps': 100,  # steps for D-Proj
         'corrBis': 0.9,           # steps for bisection
