@@ -81,8 +81,8 @@ Dem = NaN(nb, NSamples);
 Gen = NaN(ng, NSamples);
 Vol = NaN(nb, NSamples);
 
-% EPS_INTERIOR = 0.01;
-EPS_INTERIOR = 0;
+EPS_INTERIOR = 0.01;
+% EPS_INTERIOR = 0;
 
 my_model.bus(:, VMIN) = bus(:, VMIN) + EPS_INTERIOR;
 my_model.bus(:, VMAX) = bus(:, VMAX) - EPS_INTERIOR;
