@@ -29,7 +29,6 @@ def config():
         'transport_coefficient': 0,
         'testing_samples': 1024}
 
-
     defaults['nn_para'] = \
         {'training': True, 'testing': True,
          'approach': 'unsupervise',
