@@ -1398,7 +1398,14 @@ def PFFunction(data, tol=1e-5, bsz=1024, max_iters=10):
                     # jac_lu = torch.linalg.lu_factor(jac)
                     # delta = torch.linalg.ldl_solve(jac_lu, gy.unsqueeze(-1)).squeeze(-1)
                     """Linear system"""
-                    delta = torch.linalg.solve(jac, gy.unsqueeze(-1)).squeeze(-1)
+                    # delta = torch.linalg.solve(jac, gy.unsqueeze(-1)).squeeze(-1)
+                    # Add a tiny identity matrix (1e-6) to the diagonal to prevent singularity
+                    eps = 1e-6
+                    n = jac.shape[-1]
+                    identity = torch.eye(n, device=jac.device).expand_as(jac)
+                    robust_jac = jac + eps * identity
+
+                    delta = torch.linalg.solve(robust_jac, gy.unsqueeze(-1)).squeeze(-1)
                     """Approximation"""
                     # delta = 0
                     # tt = torch.eye(jac.shape[-1]).to(jac.device) - 0.01 * jac
