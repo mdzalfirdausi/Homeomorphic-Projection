@@ -33,7 +33,7 @@ def config():
     defaults['nn_para'] = \
         {'training': True, 'testing': False,
          'approach': 'unsupervise',
-        'total_iteration': 1000,
+        'total_iteration': 50,
         'batch_size': 10,
         'lr': 1e-3,
         'lr_decay': 0.9,
