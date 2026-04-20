@@ -6,20 +6,20 @@ def config():
     defaults['probSize'] = [[100, 50, 50, 10000],
                             [200, 100, 100, 20000]][1]
     defaults['opfSize'] = [[30,  10000]] #,[118, 8]
-    defaults['testSize'] = 1024
+    defaults['testSize'] = 9990 #1024
     defaults['saveAllStats'] = False
     defaults['resultsSaveFreq'] = 10
     defaults['seed'] = 2023
 
     defaults['mapping_para'] = \
-        {'training': True, 'testing': True,
+        {'training': True, 'testing': False,
         'n_samples': 1024,
-        't_samples': 10000,
+        't_samples': 10,
         'bound': [0, 1],
         'scale_ratio': 1,
         'shape': 'square',
         'total_iteration': 10,
-        'batch_size': 512,
+        'batch_size': 10,
         'num_layer': 3,
         'lr': 1e-4,
         'lr_decay': 0.9,
@@ -27,14 +27,14 @@ def config():
         'penalty_coefficient': 10,
         'distortion_coefficient': 1,
         'transport_coefficient': 0,
-        'testing_samples': 1024}
+        'testing_samples': 5}
 
 
     defaults['nn_para'] = \
-        {'training': True, 'testing': True,
+        {'training': True, 'testing': False,
          'approach': 'unsupervise',
         'total_iteration': 1000,
-        'batch_size': 512,
+        'batch_size': 10,
         'lr': 1e-3,
         'lr_decay': 0.9,
         'lr_decay_step': 1000,
