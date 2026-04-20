@@ -149,7 +149,7 @@ def train_mdh_mapping(data, args, save_dir):
 
 def test_mdh_mapping(data, save_dir, args):
     paras = args['mapping_para']
-    homeo_mapping = torch.load(os.path.join(save_dir, 'mapping.pth'), map_location=DEVICE)
+    homeo_mapping = torch.load(os.path.join(save_dir, 'mapping.pth'), map_location=DEVICE, weights_only=False)
     ### input pparameters --> output solutions
     t_tensor = data.X.squeeze()
     x_tensor = data.Y[:, data.partial_unknown_vars].squeeze()
@@ -201,7 +201,7 @@ def train_nn_solver(data, args, save_dir):
     solver_opt = optim.Adam(solver_net.parameters(), lr=lr, weight_decay=1e-5)
     solver_shce = optim.lr_scheduler.StepLR(solver_opt, step_size=lr_decay_step, gamma=lr_decay)
     try:
-        homeo_mapping = torch.load(os.path.join(save_dir, 'mapping.pth'), map_location=DEVICE)
+        homeo_mapping = torch.load(os.path.join(save_dir, 'mapping.pth'), map_location=DEVICE, weights_only=False)
     except:
         homeo_mapping = None
     stats = {}
@@ -309,10 +309,10 @@ def test_nn_solver(data, args, model_save_dir, result_save_dir):
     # homeo_mapping = torch.load(os.path.join(model_save_dir, 'mapping.pth'), map_location=DEVICE)
     mapping_path = os.path.join(model_save_dir, 'mapping.pth')
     if os.path.exists(mapping_path):
-        homeo_mapping = torch.load(mapping_path, map_location=DEVICE)
+        homeo_mapping = torch.load(mapping_path, map_location=DEVICE, weights_only=False)
     else:
         homeo_mapping = None
-    solver_net = torch.load(os.path.join(model_save_dir, 'solver_net.pth'), map_location=DEVICE)
+    solver_net = torch.load(os.path.join(model_save_dir, 'solver_net.pth'), map_location=DEVICE, weights_only=False)
     epoch_stats = {}
     solver_net.eval()
     eval_solution(data, Xtest, Ytest, solver_net, homeo_mapping, args, 'test', epoch_stats)
