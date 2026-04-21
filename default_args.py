@@ -5,21 +5,21 @@ def config():
     defaults['probType'] = ['qp', 'socp', 'convex_qcqp', 'sdp', 'acopf'][4]
     defaults['probSize'] = [[100, 50, 50, 10000],
                             [200, 100, 100, 20000]][1]
-    defaults['opfSize'] = [[30,  10000]] #,[118, 8]
-    defaults['testSize'] = 9990 #1024
-    defaults['saveAllStats'] = False
+    defaults['opfSize'] = [30,  10]
+    defaults['testSize'] = 100
+    defaults['saveAllStats'] = True
     defaults['resultsSaveFreq'] = 10
     defaults['seed'] = 2023
 
     defaults['mapping_para'] = \
         {'training': True, 'testing': False,
         'n_samples': 1024,
-        't_samples': 10,
+        't_samples': 8,
         'bound': [0, 1],
         'scale_ratio': 1,
         'shape': 'square',
-        'total_iteration': 10,
-        'batch_size': 10,
+        'total_iteration': 100, 
+        'batch_size': 8,
         'num_layer': 3,
         'lr': 1e-4,
         'lr_decay': 0.9,
@@ -27,14 +27,13 @@ def config():
         'penalty_coefficient': 10,
         'distortion_coefficient': 1,
         'transport_coefficient': 0,
-        'testing_samples': 5}
-
+        'testing_samples': 1024}
 
     defaults['nn_para'] = \
-        {'training': False, 'testing': False,
+        {'training': True, 'testing': False,
          'approach': 'unsupervise',
-        'total_iteration': 10,
-        'batch_size': 10,
+        'total_iteration': 100,
+        'batch_size': 8,
         'lr': 1e-3,
         'lr_decay': 0.9,
         'lr_decay_step': 1000,
@@ -45,8 +44,8 @@ def config():
 
 
     defaults['proj_para'] = \
-        {'useTestCorr': False,    # post-process for infeasible solutions
-        'corrMode': 'partial',    # equality completion 
+        {'useTestCorr': True,    # post-process for infeasible solutions
+        'corrMode': 'partial',    # equality completion  
         'corrTestMaxSteps': 100,  # steps for D-Proj
         'corrBis': 0.9,           # steps for bisection
         'corrEps': 1e-5,          # tolerance for constraint violation
@@ -54,4 +53,3 @@ def config():
         'corrMomentum': 0.1, }    # momentum parameter in D-Proj
 
     return defaults
-

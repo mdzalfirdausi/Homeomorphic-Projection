@@ -2,7 +2,7 @@ import torch
 from torch.autograd import Function
 import numpy as np
 import cvxpy as cp
-# import ipopt
+# import ipopt 
 import copy
 import time
 
