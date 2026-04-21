@@ -6,7 +6,7 @@ from matplotlib import pyplot as plt
 torch.set_default_dtype(torch.float64)
 
 ###################################################################
-# Plot figures 
+# Plot figures
 ###################################################################
 
 def scatter_constraint_approximation(model, constraints, x_tensor, simple_set, instance_file, paras):
@@ -104,7 +104,7 @@ def plot_convergence(volume_list, penalty_list, dist_list, trans_list, instance_
     # plt.subplots_adjust(wspace=0.15, hspace=0.15)
     plt.subplots_adjust(wspace=0.15)
     plt.savefig(instance_file+'/convergence.png', bbox_inches='tight',  dpi=300)
-    # plt.show() 
+    # plt.show()
     # plt.close()
 
 

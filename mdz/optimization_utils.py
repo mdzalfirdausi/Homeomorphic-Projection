@@ -2,7 +2,7 @@ import torch
 from torch.autograd import Function
 import numpy as np
 import cvxpy as cp
-# import ipopt 
+# import ipopt
 import copy
 import time
 
@@ -863,7 +863,7 @@ class nonconvex_ipopt(object):
 
 
 ###################################################################
-# ACOPF 
+# ACOPF
 ###################################################################
 from pypower.api import opf, makeYbus, runpf, rundcopf, makeBdc
 from pypower import idx_bus, idx_gen, idx_brch, ppoption
@@ -937,7 +937,6 @@ class ACOPFProblem:
         ppc2 = copy.deepcopy(ppc)
         ppc2['bus'][:, 0] -= 1
         ppc2['branch'][:, [0, 1]] -= 1
-        ppc2['branch'] = ppc2['branch'][:, 1:]
         Ybus, _, _ = makeYbus(self.baseMVA, ppc2['bus'], ppc2['branch'])
         Ybus = Ybus.todense()
         self.Ybusr = torch.tensor(np.real(Ybus) )
@@ -960,7 +959,7 @@ class ACOPFProblem:
 
         ## Define train/valid/test split
         # self.valid_frac = valid_frac
-        # self.test_frac = test_frac 
+        # self.test_frac = test_frac
 
         ### Load data
         X = np.concatenate([np.real(demand), np.imag(demand)], axis=1)
@@ -1061,7 +1060,7 @@ class ACOPFProblem:
             self.qmin - qg,
             vm - self.vmax,
             self.vmin - vm,
-            # self.branch_ineq_resid(X, Y)
+            self.branch_ineq_resid(X, Y)
         ], dim=1)
         return torch.clamp(resids, 0)
 
@@ -1358,7 +1357,7 @@ def PFFunction(data, tol=1e-5, bsz=1024, max_iters=10):
     class PFFunctionFn(Function):
         @staticmethod
         def forward(ctx, X, Z):
-            # start_time = time.time()
+            # start_time = time.time() 
             ## Step 1: Newton's method
             Y = torch.zeros(X.shape[0], data.ydim, device=X.device)
             # known/estimated values (pg at pv buses, vm at all gens, va at slack bus)
@@ -1398,14 +1397,7 @@ def PFFunction(data, tol=1e-5, bsz=1024, max_iters=10):
                     # jac_lu = torch.linalg.lu_factor(jac)
                     # delta = torch.linalg.ldl_solve(jac_lu, gy.unsqueeze(-1)).squeeze(-1)
                     """Linear system"""
-                    # delta = torch.linalg.solve(jac, gy.unsqueeze(-1)).squeeze(-1)
-                    # Add a tiny identity matrix (1e-6) to the diagonal to prevent singularity
-                    eps = 1e-6
-                    n = jac.shape[-1]
-                    identity = torch.eye(n, device=jac.device).expand_as(jac)
-                    robust_jac = jac + eps * identity
-
-                    delta = torch.linalg.solve(robust_jac, gy.unsqueeze(-1)).squeeze(-1)
+                    delta = torch.linalg.solve(jac, gy.unsqueeze(-1)).squeeze(-1)
                     """Approximation"""
                     # delta = 0
                     # tt = torch.eye(jac.shape[-1]).to(jac.device) - 0.01 * jac

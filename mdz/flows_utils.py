@@ -10,7 +10,7 @@ import torch.nn.functional as F
 torch.set_default_dtype(torch.float64)
 
 ###################################################################
-# Auto-regressive layers 
+# Auto-regressive layers
 ###################################################################
 def get_mask(in_features, out_features, in_flow_features, mask_type=None):
     """
@@ -262,7 +262,7 @@ class LinearNormalized(nn.Linear):
 ###################################################################
 
 class LUInvertibleMM(nn.Module):
-    """ An implementation of a invertible matrix multiplication
+    """ An implementation of a invertible matrix multiplication 
     layer from Glow: Generative Flow with Invertible 1x1 Convolutions
     (https://arxiv.org/abs/1807.03039).
     """

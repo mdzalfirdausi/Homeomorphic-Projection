@@ -18,7 +18,7 @@ torch.set_default_dtype(torch.float64)
 defaults = config()
 
 
-# def main():   
+# def main(): 
 #     args = config()
 #     args['probType'] = 'acopf'
 #     # run_instance(args) 
@@ -38,12 +38,12 @@ def main():
     args['probType'] = 'acopf'
     
     # Run for both the 30-bus and 118-bus datasets
-    for size in [[30, 10000]]:
+    for size in [[30, 10000]]: #, [118, 20000]
         args['opfSize'] = size
         run_instance(args)
 
 def load_instance(args):
-    # Load data, and put on GPU if needed
+    # Load data, and put on GPU if needed 
     seed = args['seed']
     args['algoType'] = args['predType'] + args['projType']
     test_size = args['testSize']
@@ -139,7 +139,7 @@ def train_mdh_mapping(data, args, save_dir):
     t_train_tensor = torch.rand([paras['t_samples'], t_dim]).to(device=DEVICE)
     t_train_tensor = t_train_tensor * (data.input_U - data.input_L) + data.input_L
 
-    #### Unsupervised Training for Homeo Mapping 
+    #### Unsupervised Training for Homeo Mapping
     model, volume_list, penalty_list, dist_list, trans_list = training(model, data, 
                                                                        optimizer, scheduler,
                                                                        x_train_tensor, t_train_tensor, 
@@ -200,20 +200,10 @@ def train_nn_solver(data, args, save_dir):
     solver_net.to(DEVICE)
     solver_opt = optim.Adam(solver_net.parameters(), lr=lr, weight_decay=1e-5)
     solver_shce = optim.lr_scheduler.StepLR(solver_opt, step_size=lr_decay_step, gamma=lr_decay)
-    mapping_path = os.path.join(model_save_dir, 'mapping.pth')
-    if os.path.exists(mapping_path):
-        print(f"Loading mapping from {mapping_path}")
-        homeo_mapping = torch.load(mapping_path, map_location=DEVICE, weights_only=False)
-    else:
-        # If using H_Bis, we MUST have a mapping. Raise an error instead of setting to None.
-        if 'H_Bis' in args['projType'] or 'H_Bis' in args['algoType']:
-            raise FileNotFoundError(f"CRITICAL: mapping.pth not found at {mapping_path}. "
-                                    "NN Solver cannot run H_Bis without a mapping.")
+    try:
+        homeo_mapping = torch.load(os.path.join(save_dir, 'mapping.pth'), map_location=DEVICE, weights_only=False)
+    except:
         homeo_mapping = None
-    # try:
-    #     homeo_mapping = torch.load(os.path.join(save_dir, 'mapping.pth'), map_location=DEVICE)
-    # except:
-    #     homeo_mapping = None
     stats = {}
     solver_net.train()
 
@@ -352,7 +342,7 @@ def test_nn_solver(data, args, model_save_dir, result_save_dir):
 
 def eval_solution(data, X, Ytarget, solver_net, homeo_mapping, args, prefix, stats):
     solver_net.eval()
-    if homeo_mapping is not None and hasattr(homeo_mapping, 'eval'):
+    if homeo_mapping is not None:
         homeo_mapping.eval()
     ### NN solution prediction
     raw_start_time = time.time()

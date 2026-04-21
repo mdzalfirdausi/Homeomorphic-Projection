@@ -8,7 +8,7 @@ torch.set_default_dtype(torch.float64)
 
 
 
-################################################################### 
+###################################################################
 # Unsupervised Training for Minimum-Distortion-Homeomoprhic Mapping 
 ###################################################################
 def training(model, constraints, optimizer, scheduler, x_tensor, t_tensor, args):
@@ -146,6 +146,13 @@ def diff_projection(data, X, Y, args):
         return Y_new, i
     else:
         return Y, 0
+
+
+
+
+
+
+
 
 ###################################################################
 # NN predictor
