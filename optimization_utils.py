@@ -1357,7 +1357,7 @@ def PFFunction(data, tol=1e-5, bsz=1024, max_iters=10):
     class PFFunctionFn(Function):
         @staticmethod
         def forward(ctx, X, Z):
-            # start_time = time.time()
+            # start_time = time.time() 
             ## Step 1: Newton's method
             Y = torch.zeros(X.shape[0], data.ydim, device=X.device)
             # known/estimated values (pg at pv buses, vm at all gens, va at slack bus)

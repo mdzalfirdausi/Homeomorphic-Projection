@@ -935,8 +935,8 @@ class ACOPFProblem:
 
 
         ppc2 = copy.deepcopy(ppc)
-        # ppc2['bus'][:, 0] -= 1
-        # ppc2['branch'][:, [0, 1]] -= 1
+        ppc2['bus'][:, 0] -= 1
+        ppc2['branch'][:, [0, 1]] -= 1
         ppc2['branch'] = ppc2['branch'][:, 1:]
         Ybus, _, _ = makeYbus(self.baseMVA, ppc2['bus'], ppc2['branch'])
         Ybus = Ybus.todense()

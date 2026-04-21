@@ -43,7 +43,7 @@ def main():
         run_instance(args)
 
 def load_instance(args):
-    # Load data, and put on GPU if needed
+    # Load data, and put on GPU if needed 
     seed = args['seed']
     args['algoType'] = args['predType'] + args['projType']
     test_size = args['testSize']
