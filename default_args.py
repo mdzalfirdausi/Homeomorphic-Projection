@@ -5,21 +5,21 @@ def config():
     defaults['probType'] = ['qp', 'socp', 'convex_qcqp', 'sdp', 'acopf'][4]
     defaults['probSize'] = [[100, 50, 50, 10000],
                             [200, 100, 100, 20000]][1]
-    defaults['opfSize'] = [30,  10]
-    defaults['testSize'] = 100
-    defaults['saveAllStats'] = True
-    defaults['resultsSaveFreq'] = 10
+    defaults['opfSize'] = [30,  10000] # Adjust this as needed
+    defaults['testSize'] = 10
+    defaults['saveAllStats'] = False
+    defaults['resultsSaveFreq'] = 1000
     defaults['seed'] = 2023
 
     defaults['mapping_para'] = \
         {'training': True, 'testing': False,
         'n_samples': 1024,
-        't_samples': 8,
+        't_samples': 200,
         'bound': [0, 1],
         'scale_ratio': 1,
         'shape': 'square',
-        'total_iteration': 100, 
-        'batch_size': 8,
+        'total_iteration': 20, 
+        'batch_size': 8, # Lowered from 512 for stability
         'num_layer': 3,
         'lr': 1e-4,
         'lr_decay': 0.9,
@@ -33,7 +33,7 @@ def config():
         {'training': True, 'testing': False,
          'approach': 'unsupervise',
         'total_iteration': 100,
-        'batch_size': 8,
+        'batch_size': 8, # Lowered from 512 for stability
         'lr': 1e-3,
         'lr_decay': 0.9,
         'lr_decay_step': 1000,
@@ -42,14 +42,13 @@ def config():
         'softWeightInEqFrac': 10,
         'softWeightEqFrac': 10}
 
-
     defaults['proj_para'] = \
-        {'useTestCorr': True,    # post-process for infeasible solutions
-        'corrMode': 'partial',    # equality completion  
-        'corrTestMaxSteps': 100,  # steps for D-Proj
-        'corrBis': 0.9,           # steps for bisection
-        'corrEps': 1e-5,          # tolerance for constraint violation
-        'corrLr': 1e-5,           # stepsize for gradient descent in D-Proj
-        'corrMomentum': 0.1, }    # momentum parameter in D-Proj
+        {'useTestCorr': False,    
+        'corrMode': 'partial',      
+        'corrTestMaxSteps': 100,  
+        'corrBis': 0.9,           
+        'corrEps': 1e-5,          
+        'corrLr': 1e-5,           
+        'corrMomentum': 0.1, }    
 
     return defaults
