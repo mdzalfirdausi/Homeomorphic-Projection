@@ -175,7 +175,9 @@ def scatter_projection_error(model, constraints, x_tensor, t_tensor, instance_fi
         t_sub_tensor = t_sub_tensor[infeasible_index]
         penalty = penalty[infeasible_index]
         proj_x = constraints.opt_proj(t_sub_tensor, x_full).to(x_full.device).view(x_full.shape)
-        h_proj_x, h_steps = homeo_bisection(model, None, constraints, args, x_tensor[infeasible_index], x_full, t_sub_tensor)
+        h_proj_x, h_steps = homeo_bisection(model, constraints, args, x_tensor[infeasible_index], t_sub_tensor)
+        # def homeo_bisection(model, constraints, args, x_tensor, t_tensor):
+        # h_proj_x, h_steps = homeo_bisection(model, None, constraints, args, x_tensor[infeasible_index], x_full, t_sub_tensor)
         proj_error_list.append(torch.abs(proj_x - x_full).sum(-1))
         proj_x_list.append(proj_x)
         h_proj_x_list.append(h_proj_x)
