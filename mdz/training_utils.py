@@ -10,7 +10,7 @@ torch.set_default_dtype(torch.float64)
 
 ###################################################################
 # Unsupervised Training for Minimum-Distortion-Homeomoprhic Mapping 
-###################################################################
+################################################################### 
 def training(model, constraints, optimizer, scheduler, x_tensor, t_tensor, args):
     batch_size = args['batch_size']
     total_iteration = args['total_iteration']
@@ -43,7 +43,7 @@ def training(model, constraints, optimizer, scheduler, x_tensor, t_tensor, args)
         xt_full = constraints.complete_partial(t_input, xt_scale)
         violation = constraints.cal_penalty(t_input, xt_full)
         penalty = torch.sum(torch.abs(violation), dim=-1, keepdim=True)
-        loss = -  torch.mean(volume) /n_dim  \
+        loss =  -  torch.mean(volume) /n_dim  \
                 +  penalty_coefficient * torch.mean(penalty) \
                 +  distortion_coefficient * torch.mean(logdis) \
                 +  transport_coefficient * torch.mean(trans) 

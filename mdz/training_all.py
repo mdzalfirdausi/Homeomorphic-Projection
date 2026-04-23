@@ -107,7 +107,7 @@ def run_instance(args):
 
 def train_mdh_mapping(data, args, save_dir):
     paras = args['mapping_para']
-    ### input pparameters --> output solutions
+    ### input pparameters --> output solutions 
     t_tensor = data.X.squeeze()
     x_tensor = data.Y[:, data.partial_unknown_vars].squeeze()
     t_samples, t_dim = t_tensor.shape
@@ -122,7 +122,7 @@ def train_mdh_mapping(data, args, save_dir):
                          LUInvertibleMM(num_inputs=n_dim),
                          ActNorm(num_inputs=n_dim),
                          MADE(num_inputs=n_dim, num_hidden=n_dim//2, num_cond_inputs=t_dim)]
-                                #  CouplingLayer(n_dim, n_dim//2, mask, t_dim)]
+                                #  CouplingLayer(n_dim, n_dim//2, mask, t_dim)] 
     flow_modules += [ActNorm(num_inputs=n_dim), Sigmoid()]
     model = INN(flow_modules, None).to(device=DEVICE)
     optimizer = optim.Adam(model.parameters(),

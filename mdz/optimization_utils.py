@@ -864,7 +864,7 @@ class nonconvex_ipopt(object):
 
 ###################################################################
 # ACOPF
-###################################################################
+################################################################### 
 from pypower.api import opf, makeYbus, runpf, rundcopf, makeBdc
 from pypower import idx_bus, idx_gen, idx_brch, ppoption
 from pypower.idx_cost import COST
