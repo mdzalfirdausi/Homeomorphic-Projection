@@ -5,16 +5,16 @@ def config():
     defaults['probType'] = ['qp', 'socp', 'convex_qcqp', 'sdp', 'acopf'][4]
     defaults['probSize'] = [[100, 50, 50, 10000],
                             [200, 100, 100, 20000]][1]
-    defaults['opfSize'] = [57,  10] # Adjust this as needed
+    defaults['opfSize'] = [30,  10000] # Adjust this as needed
     defaults['testSize'] = 1
     defaults['saveAllStats'] = False
     defaults['resultsSaveFreq'] = 10
     defaults['seed'] = 2026
 
     defaults['mapping_para'] = \
-        {'training': True, 'testing': False,
-        'n_samples': 1024,
-        't_samples': 200,
+        {'training': True, 'testing': True,
+        'n_samples': 50,
+        't_samples': 10,
         'bound': [0, 1],
         'scale_ratio': 1,
         'shape': 'square',
@@ -30,7 +30,7 @@ def config():
         'testing_samples': 1024}
 
     defaults['nn_para'] = \
-        {'training': True, 'testing': False,
+        {'training': True, 'testing': True,
          'approach': 'unsupervise',
         'total_iteration': 100,
         'batch_size': 8, 

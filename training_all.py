@@ -434,7 +434,7 @@ def eval_solution(data, X, Ytarget, solver_net, homeo_mapping, args, prefix, sta
 
     dict_agg(stats, make_prefix('num_infeasible'), num_infeasible_prediction)
     dict_agg(stats, make_prefix('index_infeasible'), infeasible_index.detach().cpu().numpy())
-
+ 
     Y_obj = data.obj_fn(Y).detach().cpu()
     Ycor_obj = data.obj_fn(Ycorr).detach().cpu()
     Ytarget_obj = data.obj_fn(Ytarget).detach().cpu()
