@@ -24,7 +24,7 @@ def config():
         'lr': 1e-4,
         'lr_decay': 0.9,
         'lr_decay_step': 1000,
-        'penalty_coefficient': 10,
+        'penalty_coefficient': 10, 
         'distortion_coefficient': 1,
         'transport_coefficient': 0,
         'testing_samples': 10}
