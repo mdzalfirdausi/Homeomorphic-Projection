@@ -35,7 +35,6 @@ def sampling_sphere_surface(n_samples, n_dim):
     x_s = x/np.linalg.norm(x,axis=1,ord=2, keepdims=True)
     return x_s
 
-
 def sampling_sphere(n_samples, n_dim):
     dims = []
     for d in range(n_dim):

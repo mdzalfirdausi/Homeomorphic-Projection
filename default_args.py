@@ -5,11 +5,11 @@ def config():
     defaults['probType'] = ['qp', 'socp', 'convex_qcqp', 'sdp', 'acopf'][4]
     defaults['probSize'] = [[100, 50, 50, 10000],
                             [200, 100, 100, 20000]][1]
-    defaults['opfSize'] = [30,  10000] # Adjust this as needed
+    defaults['opfSize'] = [300,  1000] # Adjust this as needed
     defaults['testSize'] = 10
     defaults['saveAllStats'] = False
     defaults['resultsSaveFreq'] = 1000
-    defaults['seed'] = 2023
+    defaults['seed'] = 2026
 
     defaults['mapping_para'] = \
         {'training': True, 'testing': False,
@@ -19,7 +19,7 @@ def config():
         'scale_ratio': 1,
         'shape': 'square',
         'total_iteration': 20, 
-        'batch_size': 8, # Lowered from 512 for stability
+        'batch_size': 8,
         'num_layer': 3,
         'lr': 1e-4,
         'lr_decay': 0.9,
@@ -33,7 +33,7 @@ def config():
         {'training': True, 'testing': False,
          'approach': 'unsupervise',
         'total_iteration': 100,
-        'batch_size': 8, # Lowered from 512 for stability
+        'batch_size': 8, 
         'lr': 1e-3,
         'lr_decay': 0.9,
         'lr_decay_step': 1000,

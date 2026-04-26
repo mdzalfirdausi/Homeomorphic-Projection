@@ -10,7 +10,7 @@ import torch.nn.functional as F
 torch.set_default_dtype(torch.float64)
 
 ###################################################################
-# Auto-regressive layers
+# Auto-regressive layers 
 ###################################################################
 def get_mask(in_features, out_features, in_flow_features, mask_type=None):
     """

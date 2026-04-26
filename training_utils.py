@@ -77,7 +77,7 @@ def training(model, constraints, optimizer, scheduler, x_tensor, t_tensor, args)
 
 
 ###################################################################
-# Binary Search for Homeomorphic Projection
+# Binary Search for Homeomorphic Projection 
 ###################################################################
 def homeo_bisection(model, constraints, args, x_tensor, t_tensor):
     model.eval()
