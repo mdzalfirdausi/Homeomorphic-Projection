@@ -264,7 +264,8 @@ def train_nn_solver(data, args, save_dir):
         dict_agg(epoch_stats, 'train_time', train_time, op='sum')
 
         # Print results
-        if i % args['resultsSaveFreq'] == 0 and i > 0:
+        if i % args['resultsSaveFreq'] == 0 and i > 0: 
+        # if i % args['resultsSaveFreq'] == 0 and i > 0: 
             solver_net.eval()
             with torch.no_grad():
                 eval_solution(data, Xtest, Ytest, solver_net, homeo_mapping, args, 'test', epoch_stats)

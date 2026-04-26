@@ -8,7 +8,7 @@ def config():
     defaults['opfSize'] = [57,  10] # Adjust this as needed
     defaults['testSize'] = 1
     defaults['saveAllStats'] = False
-    defaults['resultsSaveFreq'] = 1000
+    defaults['resultsSaveFreq'] = 10
     defaults['seed'] = 2026
 
     defaults['mapping_para'] = \
