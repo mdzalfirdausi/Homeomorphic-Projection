@@ -1353,7 +1353,7 @@ class ACOPFProblem:
         total_time += (end_time - start_time)
         return torch.tensor(np.array(Y) )
 
-def PFFunction(data, tol=1e-5, bsz=1024, max_iters=10):
+def PFFunction(data, tol=1e-5, bsz=1024, max_iters=10000):
     class PFFunctionFn(Function):
         @staticmethod
         def forward(ctx, X, Z):
@@ -1384,7 +1384,7 @@ def PFFunction(data, tol=1e-5, bsz=1024, max_iters=10):
             for b in range(0, X.shape[0], bsz):
                 X_b = X[b:b + bsz]
                 Y_b = Y[b:b + bsz]
-                for _ in range(max_iters):
+                for wk in range(max_iters):
                     gy = data.eq_resid(X_b, Y_b)[:, keep_constr]
                     jac_full = data.eq_jac(Y_b)
                     jac = jac_full[:, keep_constr, :]
@@ -1411,6 +1411,7 @@ def PFFunction(data, tol=1e-5, bsz=1024, max_iters=10):
                     Y_b[:, newton_guess_inds] -= delta
                     if torch.abs(delta).max() < tol:
                         break
+                    # print('Newton iters:', wk, torch.abs(delta).max(), tol)
                 if torch.abs(delta).max() > tol:
                     print('Newton methods for Power Flow does not converge')
                 # print(torch.abs(delta).max())
