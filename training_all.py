@@ -347,6 +347,10 @@ def test_nn_solver(data, args, model_save_dir, result_save_dir):
 
 
 def eval_solution(data, X, Ytarget, solver_net, homeo_mapping, args, prefix, stats):
+    # --- ADD THESE 3 LINES ---
+    if X.ndim == 1: X = X.unsqueeze(0)
+    if Ytarget.ndim == 1: Ytarget = Ytarget.unsqueeze(0)
+    # -------------------------
     solver_net.eval()
     if homeo_mapping is not None:
         homeo_mapping.eval()

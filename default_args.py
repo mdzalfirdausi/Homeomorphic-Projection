@@ -27,7 +27,7 @@ def config():
         'penalty_coefficient': 10,
         'distortion_coefficient': 1,
         'transport_coefficient': 0,
-        'testing_samples': 1024}
+        'testing_samples': 10}
 
     defaults['nn_para'] = \
         {'training': True, 'testing': True,

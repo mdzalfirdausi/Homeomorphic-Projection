@@ -1007,7 +1007,18 @@ class ACOPFProblem:
         return 'ACOPF-{}-{}-{}-{}-{}-{}'.format(
             self.nbus, self.EPS_INTERIOR, self.CorrCoeff, self.MaxChangeLoad,  0.2, 0.0)
 
+    # def get_yvars(self, Y):
+    #     pg = Y[:, :self.ng]
+    #     qg = Y[:, self.ng:2 * self.ng]
+    #     vm = Y[:, -2 * self.nbus:-self.nbus]
+    #     va = Y[:, -self.nbus:]
+    #     return pg, qg, vm, va
+
     def get_yvars(self, Y):
+        # If Y is 1D (e.g., shape [features]), add a batch dimension -> [1, features]
+        if Y.ndim == 1:
+            Y = Y.unsqueeze(0)
+            
         pg = Y[:, :self.ng]
         qg = Y[:, self.ng:2 * self.ng]
         vm = Y[:, -2 * self.nbus:-self.nbus]
@@ -1407,7 +1418,7 @@ def PFFunction(data, tol=1e-5, bsz=1024, max_iters=10000):
                     #     delta += jac_inv
                     # delta = 0.01 * delta
                     # print('lin run_time', time.time()-start_time)
-                    # ineq_step = data.ineq_grad(X_b, Y_b)
+                    # ineq_step = data.ineq_grad(X_b, Y_b) 
                     Y_b[:, newton_guess_inds] -= delta
                     if torch.abs(delta).max() < tol:
                         break
