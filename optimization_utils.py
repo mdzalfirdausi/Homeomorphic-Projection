@@ -1016,7 +1016,7 @@ class ACOPFProblem:
 
     def get_yvars(self, Y):
         # If Y is 1D (e.g., shape [features]), add a batch dimension -> [1, features]
-        if Y.ndim == 1:
+        if Y.ndim == 1: 
             Y = Y.unsqueeze(0)
             
         pg = Y[:, :self.ng]

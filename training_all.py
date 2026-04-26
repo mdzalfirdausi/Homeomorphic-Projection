@@ -160,8 +160,8 @@ def test_mdh_mapping(data, save_dir, args):
     x_tensor = data.Y[:, data.partial_unknown_vars].squeeze()
     t_samples, t_dim = t_tensor.shape
     n_samples, n_dim = x_tensor.shape
-    #### Sampling input parameters and output decision
-    initial_shape = paras['shape']
+    #### Sampling input parameters and output decision 
+    initial_shape = paras['shape'] # square
     bound = paras['bound']
     test_n_dim = paras['testing_samples']
     t_tensor = torch.rand([test_n_dim, t_dim]).to(device=DEVICE)

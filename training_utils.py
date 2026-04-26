@@ -48,7 +48,7 @@ def training(model, constraints, optimizer, scheduler, x_tensor, t_tensor, args)
                 +  distortion_coefficient * torch.mean(logdis) \
                 +  transport_coefficient * torch.mean(trans) 
         loss.backward()
-        # torch.nn.utils.clip_grad_norm_(model.parameters(), 0.01)
+        # torch.nn.utils.clip_grad_norm_(model.parameters(), 0.01) 
         optimizer.step()
         scheduler.step()
         volume_list.append(torch.mean(logdet).detach().cpu().numpy()/n_dim)

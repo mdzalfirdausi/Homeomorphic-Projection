@@ -154,7 +154,7 @@ def scatter_constraint_evolution(model, constraints, x_tensor, simple_set, insta
     plt.show()
     plt.close()
 
-
+# scatter_projection_error(homeo_mapping, data, x_tensor, t_tensor, save_dir, args)
 def scatter_projection_error(model, constraints, x_tensor, t_tensor, instance_file, args):
     model.eval()
     proj_error_list =  []
