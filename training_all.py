@@ -38,9 +38,9 @@ def main():
     args['probType'] = 'acopf'
     
     # Run for both the 30-bus and 118-bus datasets
-    for size in [[30, 10000]]: #, [118, 20000]
-        args['opfSize'] = size
-        run_instance(args)
+    # for size in [[30, 10000]]: #, [118, 20000]
+    #     args['opfSize'] = size
+    run_instance(args)
 
 def load_instance(args):
     # Load data, and put on GPU if needed 
@@ -53,6 +53,11 @@ def load_instance(args):
             seed, args['opfSize'][0], args['opfSize'][1]))
         with open(filepath, 'rb') as f:
             dataset = pickle.load(f)
+            bus_to_idx = {bus: i+1 for i, bus in enumerate(dataset['ppc']['bus'][:,0])}
+            dataset['ppc']['bus'][:,0] = np.array([bus_to_idx[bus] for bus in dataset['ppc']['bus'][:,0]])
+            dataset['ppc']['gen'][:,0] = np.array([bus_to_idx[bus] for bus in dataset['ppc']['gen'][:,0]])
+            dataset['ppc']['branch'][:,0] = np.array([bus_to_idx[bus] for bus in dataset['ppc']['branch'][:,0]])
+            dataset['ppc']['branch'][:,1] = np.array([bus_to_idx[bus] for bus in dataset['ppc']['branch'][:,1]])
         data = ACOPFProblem(dataset, test_size)
     else:
         NotImplementedError

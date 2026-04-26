@@ -6,7 +6,7 @@ def config():
     defaults['probSize'] = [[100, 50, 50, 10000],
                             [200, 100, 100, 20000]][1]
     defaults['opfSize'] = [300,  1000] # Adjust this as needed
-    defaults['testSize'] = 10
+    defaults['testSize'] = 1
     defaults['saveAllStats'] = False
     defaults['resultsSaveFreq'] = 1000
     defaults['seed'] = 2026
