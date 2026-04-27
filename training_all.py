@@ -218,6 +218,7 @@ def train_nn_solver(data, args, save_dir):
     Ytest = data.testY.squeeze().to(DEVICE)
 
     for i in range(nepochs + 1):
+        print(f"\rEpoch {i}/{nepochs}", end="", flush=True)
         epoch_stats = {}
         if training_appoach == 'supervise':
             batch_index = np.random.choice(np.arange(Xtrain.shape[0]), batch_size, replace=True)

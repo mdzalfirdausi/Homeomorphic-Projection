@@ -24,7 +24,7 @@ def training(model, constraints, optimizer, scheduler, x_tensor, t_tensor, args)
     bias_tensor = torch.ones(batch_size, x_tensor.shape[1]).to(x_tensor.device) * np.mean(args['bound'])
     model.train()
     for n in range(total_iteration):
-        # print(f"Working on iteration {n}...", end='\r') # Add this!
+        print(f"\rWorking on iteration {n}...", end="", flush=True)
         optimizer.zero_grad()
         batch_index = np.random.choice([i for i in range(x_tensor.shape[0])],  batch_size, replace=True)
         x_input = x_tensor[batch_index]

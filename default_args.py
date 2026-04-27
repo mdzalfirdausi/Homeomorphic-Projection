@@ -10,7 +10,7 @@ def config():
     defaults['saveAllStats'] = False
     defaults['resultsSaveFreq'] = 10
     defaults['seed'] = 2026
- 
+  
     defaults['mapping_para'] = \
         {'training': True, 'testing': True,
         'n_samples': 50,
