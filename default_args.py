@@ -1,11 +1,11 @@
 def config():
     defaults = {}
-    defaults['predType'] = ['NN', 'NN_Eq'][0]
+    defaults['predType'] = ['NN', 'NN_Eq'][1]
     defaults['projType'] = ['WS', 'Proj', 'D_Proj', 'H_Bis'][3]
     defaults['probType'] = ['qp', 'socp', 'convex_qcqp', 'sdp', 'acopf'][4]
-    defaults['probSize'] = [[100, 50, 50, 10000],
+    defaults['probSize'] = [[100, 50, 50, 10000], 
                             [200, 100, 100, 20000]][1]
-    defaults['opfSize'] = [300,  11] # Adjust this as needed
+    defaults['opfSize'] = [300,  10] # Adjust this as needed
     defaults['testSize'] = 1
     defaults['saveAllStats'] = False
     defaults['resultsSaveFreq'] = 10
