@@ -5,10 +5,10 @@ def config():
     defaults['probType'] = ['qp', 'socp', 'convex_qcqp', 'sdp', 'acopf'][4]
     defaults['probSize'] = [[100, 50, 50, 10000], 
                             [200, 100, 100, 20000]][1]
-    defaults['opfSize'] = [300,  10] # Adjust this as needed
+    defaults['opfSize'] = [60,  10] # Adjust this as needed
     defaults['testSize'] = 1
     defaults['saveAllStats'] = False
-    defaults['resultsSaveFreq'] = 10
+    defaults['resultsSaveFreq'] = 5
     defaults['seed'] = 2026
   
     defaults['mapping_para'] = \
