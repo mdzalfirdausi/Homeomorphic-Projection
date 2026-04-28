@@ -17,6 +17,7 @@ def training(model, constraints, optimizer, scheduler, x_tensor, t_tensor, args)
     penalty_coefficient = args['penalty_coefficient']
     distortion_coefficient = args['distortion_coefficient']
     transport_coefficient = args['transport_coefficient']
+    resultsSaveFreq = args['resultsSaveFreq']
     volume_list = []
     penalty_list = []
     dist_list = []
@@ -24,7 +25,7 @@ def training(model, constraints, optimizer, scheduler, x_tensor, t_tensor, args)
     bias_tensor = torch.ones(batch_size, x_tensor.shape[1]).to(x_tensor.device) * np.mean(args['bound'])
     model.train()
     for n in range(total_iteration):
-        print(f"\rWorking on iteration {n}...", end="", flush=True)
+        # print(f"\rTraining MDH mapping on iteration {n}...", end="")
         optimizer.zero_grad()
         batch_index = np.random.choice([i for i in range(x_tensor.shape[0])],  batch_size, replace=True)
         x_input = x_tensor[batch_index]
@@ -55,7 +56,7 @@ def training(model, constraints, optimizer, scheduler, x_tensor, t_tensor, args)
         penalty_list.append(torch.mean(penalty).detach().cpu().numpy())
         dist_list.append(torch.mean(logdis).detach().cpu().numpy()/args['num_layer'])
         trans_list.append(torch.mean(trans).detach().cpu().numpy())
-        if n%1000==0 and n>0:
+        if n%resultsSaveFreq==0 and n>0:
             model.eval()
             with torch.no_grad():
             # bias_tensor.requires_grad = True
@@ -64,7 +65,7 @@ def training(model, constraints, optimizer, scheduler, x_tensor, t_tensor, args)
                 x0_full = constraints.complete_partial(t_input, x0_scale, backward=False)
                 violation_0 = constraints.check_feasibility(t_input, x0_full)
                 penalty_0 = torch.sum(torch.abs(violation_0), dim=-1, keepdim=True)
-            print(f'Iteration: {n}/{total_iteration}, '
+            print(f'MDH mapping Iteration: {n}/{total_iteration}, '
                   f'Volume: {volume_list[-1]:.4f}, '
                   f'Penalty: {penalty_list[-1]:.4f}, '
                   f'Distortion: {dist_list[-1]:.4f}, '

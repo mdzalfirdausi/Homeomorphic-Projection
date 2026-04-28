@@ -218,7 +218,7 @@ def train_nn_solver(data, args, save_dir):
     Ytest = data.testY.squeeze().to(DEVICE)
 
     for i in range(nepochs + 1):
-        print(f"\rEpoch {i}/{nepochs}", end="", flush=True)
+        print(f"\rTrain NN solver epoch {i}/{nepochs}", end="")
         epoch_stats = {}
         if training_appoach == 'supervise':
             batch_index = np.random.choice(np.arange(Xtrain.shape[0]), batch_size, replace=True)
@@ -270,17 +270,23 @@ def train_nn_solver(data, args, save_dir):
             solver_net.eval()
             with torch.no_grad():
                 eval_solution(data, Xtest, Ytest, solver_net, homeo_mapping, args, 'test', epoch_stats)
-            print('Epoch:{}\n'
+            print(
+                # 'Epoch:{}\n'
                   'Raw_loss: MSE({:.4f}), MAE({:.4f}), MAP({:.4f}),     Raw_obj: MSE({:.4f}), MAE({:.4f}), MAP({:.4f}) \n'
                   'Raw_Ineq: Max({:.4f}), Sum({:.4f}), Per({:.4f}),     Raw_eq:  Max({:.4f}), Sum({:.4f}), Per({:.4f})\n'.format(
-                i,
-                np.mean(epoch_stats['test_raw_mse_loss']), np.mean(epoch_stats['test_raw_mae_loss']),
-                np.mean(epoch_stats['test_raw_mape_loss']), np.mean(epoch_stats['test_raw_obj_mse']),
-                np.mean(epoch_stats['test_raw_obj_mae']), np.mean(epoch_stats['test_raw_obj_mape']),
-                np.mean(epoch_stats['test_raw_ineq_max']), np.mean(epoch_stats['test_raw_ineq_sum']),
+                # i,
+                np.mean(epoch_stats['test_raw_mse_loss']), 
+                np.mean(epoch_stats['test_raw_mae_loss']),
+                np.mean(epoch_stats['test_raw_mape_loss']), 
+                np.mean(epoch_stats['test_raw_obj_mse']),
+                np.mean(epoch_stats['test_raw_obj_mae']),
+                np.mean(epoch_stats['test_raw_obj_mape']),
+                np.mean(epoch_stats['test_raw_ineq_max']), 
+                np.mean(epoch_stats['test_raw_ineq_sum']),
                 np.mean(epoch_stats['test_raw_ineq_num_viol_0']) / data.nineq,
                 np.mean(epoch_stats['test_raw_eq_max']),
-                np.mean(epoch_stats['test_raw_eq_sum']), np.mean(epoch_stats['test_raw_eq_num_viol_0']) / data.neq))
+                np.mean(epoch_stats['test_raw_eq_sum']), 
+                np.mean(epoch_stats['test_raw_eq_num_viol_0']) / data.neq))
             with open(os.path.join(save_dir, 'solver_net.pth'), 'wb') as f:
                 torch.save(solver_net, f)
         if args['saveAllStats']:
@@ -376,7 +382,7 @@ def eval_solution(data, X, Ytarget, solver_net, homeo_mapping, args, prefix, sta
     Y_pred_infeasible = Y[infeasible_index]
     num_infeasible_prediction = Y_pred_infeasible.shape[0]
     Ycorr = Y.detach().clone()
-    print(f'num of infeasible instance {Y_pred_infeasible.shape[0]}')
+    print(f'\nnum of infeasible instance {Y_pred_infeasible.shape[0]}')
     Proj_time = 0.0
     if num_infeasible_prediction > 0:
         cor_start_time = time.time()
