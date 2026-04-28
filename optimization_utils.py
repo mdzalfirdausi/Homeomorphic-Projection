@@ -1400,7 +1400,7 @@ class ACOPFProblem:
         total_time = 0
         start_time = time.time()
         for i in range(X_np.shape[0]):
-            print(i, end='\r')
+            print(f'opt_proj ACOPFProblem:{i}', end='\r')
             pg_0 = pg_all[i]
             pd = X_np[i]
             ppc = copy.deepcopy(self.ppc)

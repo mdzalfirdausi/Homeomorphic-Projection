@@ -202,7 +202,7 @@ def scatter_projection_error(model, constraints, x_tensor, t_tensor, instance_fi
     # plt.legend([r'$\theta_1$',r'$\theta_2$',r'$\theta_3$'], loc='upper left', fontsize=char_size-2)
     # plt.xlabel(r'Constraint violation', fontsize=char_size) #: $|\rm{ReLU}(g(x,\theta))|_1$
     # plt.ylabel(r'Proj distance', fontsize=char_size) # : $|x-\rm{Proj}(x)|_1$
-    # plt.title(r'Projection', fontsize=char_size)
+    # plt.title(r'Projection', fontsize=char_size) 
     # plt.xlim([0, max(penalty_list[~np.isnan(h_proj_error_list)])])
     # plt.ylim([0, max(h_proj_error_list[~np.isnan(h_proj_error_list)])])
     # plt.subplot(grid[0,1])

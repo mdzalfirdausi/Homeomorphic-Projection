@@ -155,7 +155,7 @@ def train_mdh_mapping(data, args, save_dir):
 def test_mdh_mapping(data, save_dir, args):
     paras = args['mapping_para']
     homeo_mapping = torch.load(os.path.join(save_dir, 'mapping.pth'), map_location=DEVICE, weights_only=False)
-    ### input pparameters --> output solutions
+    ### input pparameters --> output solutions 
     t_tensor = data.X.squeeze()
     x_tensor = data.Y[:, data.partial_unknown_vars].squeeze()
     t_samples, t_dim = t_tensor.shape
