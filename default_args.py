@@ -12,7 +12,7 @@ def config():
     defaults['seed'] = 2026
   
     defaults['mapping_para'] = \
-        {'training': False, 'testing': True,
+        {'training': True, 'testing': True,
         'n_samples': 1000,
         't_samples': 64,
         'bound': [0, 1],
