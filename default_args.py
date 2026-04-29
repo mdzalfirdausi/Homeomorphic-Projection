@@ -8,38 +8,38 @@ def config():
     defaults['opfSize'] = [30,  10] # Adjust this as needed
     defaults['testSize'] = 1
     defaults['saveAllStats'] = False
-    defaults['resultsSaveFreq'] = 5
+    defaults['resultsSaveFreq'] = 50
     defaults['seed'] = 2026
   
     defaults['mapping_para'] = \
-        {'training': False, 'testing': False,
-        'n_samples': 50,
-        't_samples': 10,
+        {'training': False, 'testing': True,
+        'n_samples': 1000,
+        't_samples': 64,
         'bound': [0, 1],
         'scale_ratio': 1,
         'shape': 'square',
-        'total_iteration': 30, 
-        'batch_size': 8,
-        'num_layer': 3,
+        'total_iteration': 1000, 
+        'batch_size': 64,
+        'num_layer': 4,
         'lr': 1e-4,
         'lr_decay': 0.9,
-        'lr_decay_step': 5,
-        'penalty_coefficient': 50, 
+        'lr_decay_step': 200,
+        'penalty_coefficient': 100, 
         'distortion_coefficient': 1,
         'transport_coefficient': 0,
         'testing_samples': 5,
         'resultsSaveFreq': defaults['resultsSaveFreq']}
 
     defaults['nn_para'] = \
-        {'training': False, 'testing': True,
+        {'training': True, 'testing': True,
          'approach': 'unsupervise',
-        'total_iteration': 30,
-        'batch_size': 8, 
+        'total_iteration': 1000,
+        'batch_size': 64, 
         'lr': 1e-3,
         'lr_decay': 0.9,
-        'lr_decay_step': 10,
-        'num_layer': 3,
-        'objWeight': 0.01,
+        'lr_decay_step': 200,
+        'num_layer': 4,
+        'objWeight': 0.05,
         'softWeightInEqFrac': 100,
         'softWeightEqFrac': 100}
 
@@ -47,7 +47,7 @@ def config():
         {'useTestCorr': True,    
         'corrMode': 'partial',      
         'corrTestMaxSteps': 100,  
-        'corrBis': 0.9,           
+        'corrBis': 0.5,           
         'corrEps': 1e-5,          
         'corrLr': 1e-5,           
         'corrMomentum': 0.1, }    
