@@ -62,39 +62,39 @@ def config():
     defaults['probType'] = ['qp', 'socp', 'convex_qcqp', 'sdp', 'acopf'][4]
     defaults['probSize'] = [[100, 50, 50, 10000], 
                             [200, 100, 100, 20000]][1]
-    defaults['opfSize'] = [60,  10] # Adjust this as needed
-    defaults['testSize'] = 1
+    defaults['opfSize'] = [60,  15000]
+    defaults['testSize'] = 1500       # CHANGED: 10% holdout for proper evaluation
     defaults['saveAllStats'] = False
-    defaults['resultsSaveFreq'] = 50
+    defaults['resultsSaveFreq'] = 500 # CHANGED: Scaled up to avoid I/O bottlenecks
     defaults['seed'] = 2026
   
     defaults['mapping_para'] = \
         {'training': True, 'testing': True,
-        'n_samples': 1000,
-        't_samples': 64,
+        'n_samples': 15000,
+        't_samples': 256,             # CHANGED: Larger parameter sampling for better gradients
         'bound': [0, 1],
         'scale_ratio': 1,
         'shape': 'square',
-        'total_iteration': 1000, 
-        'batch_size': 64,
+        'total_iteration': 5000,      # CHANGED: Give the model time to converge
+        'batch_size': 256,            # CHANGED: Maximizing GPU parallelization
         'num_layer': 4,
         'lr': 1e-4,
         'lr_decay': 0.9,
-        'lr_decay_step': 200,
+        'lr_decay_step': 1000,        # CHANGED: Scaled to match the new total_iteration
         'penalty_coefficient': 100, 
         'distortion_coefficient': 1,
         'transport_coefficient': 0,
         'testing_samples': 5,
-        'resultsSaveFreq': defaults['resultsSaveFreq']}
+        'resultsSaveFreq': 500}       # CHANGED: Match the global save frequency
 
     defaults['nn_para'] = \
         {'training': True, 'testing': True,
-         'approach': 'unsupervise',
-        'total_iteration': 1000,
-        'batch_size': 64, 
+         'approach': 'supervise',     # CHANGED: Crucial for utilizing your dataset labels
+        'total_iteration': 5000,      # CHANGED: ~100 epochs over the training set
+        'batch_size': 256,            # CHANGED: Maximizing GPU parallelization
         'lr': 1e-3,
         'lr_decay': 0.9,
-        'lr_decay_step': 200,
+        'lr_decay_step': 1000,        # CHANGED: Scaled to match the new total_iteration
         'num_layer': 4,
         'objWeight': 0.05,
         'softWeightInEqFrac': 100,
