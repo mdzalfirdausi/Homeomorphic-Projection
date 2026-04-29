@@ -239,7 +239,7 @@ def scatter_projection_error(model, constraints, x_tensor, t_tensor, instance_fi
     # print('\nSlope for curve:', np.mean((h_proj_error_list[index]))/np.mean(proj_error_list[index]))
     shape = args['mapping_para']['shape']
     plt.savefig(instance_file+f'/{constraints.__class__.__name__}_{shape}_proj_error_scatter_{x_tensor.shape[1]}.png', bbox_inches='tight', dpi=300)
-    plt.show()
+    # plt.show()
     plt.close()
     return
 

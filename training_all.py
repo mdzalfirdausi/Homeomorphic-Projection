@@ -511,6 +511,12 @@ def eval_solution(data, X, Ytarget, solver_net, homeo_mapping, args, prefix, sta
     dict_agg(stats, make_prefix('cor_eq_num_viol_0'), torch.sum(cor_eq_vio > eps_converge, dim=1).numpy())
     dict_agg(stats, make_prefix('cor_vio_instance'), ((torch.max(cor_ineq_vio, dim=1)[0]> eps_converge) |
                                                       (torch.max(cor_eq_vio, dim=1)[0] > eps_converge)).numpy())
+    # --- ADD THESE 3 LINES ---
+    still_infeasible = ((torch.max(cor_ineq_vio, dim=1)[0] > eps_converge) | 
+                        (torch.max(cor_eq_vio, dim=1)[0] > eps_converge)).sum().item()
+    print(f'num of infeasible instance AFTER projection: {still_infeasible}\n')
+    # -------------------------
+    
     return stats
 
 

@@ -12,18 +12,18 @@ def config():
     defaults['seed'] = 2026
   
     defaults['mapping_para'] = \
-        {'training': False, 'testing': True,
-        'n_samples': 500,
+        {'training': False, 'testing': False,
+        'n_samples': 50,
         't_samples': 10,
         'bound': [0, 1],
         'scale_ratio': 1,
         'shape': 'square',
-        'total_iteration': 300, 
-        'batch_size': 32,
+        'total_iteration': 30, 
+        'batch_size': 8,
         'num_layer': 3,
         'lr': 1e-4,
         'lr_decay': 0.9,
-        'lr_decay_step': 50,
+        'lr_decay_step': 5,
         'penalty_coefficient': 50, 
         'distortion_coefficient': 1,
         'transport_coefficient': 0,
@@ -31,20 +31,20 @@ def config():
         'resultsSaveFreq': defaults['resultsSaveFreq']}
 
     defaults['nn_para'] = \
-        {'training': False, 'testing': False,
+        {'training': False, 'testing': True,
          'approach': 'unsupervise',
-        'total_iteration': 500,
-        'batch_size': 32, 
+        'total_iteration': 30,
+        'batch_size': 8, 
         'lr': 1e-3,
         'lr_decay': 0.9,
-        'lr_decay_step': 100,
+        'lr_decay_step': 10,
         'num_layer': 3,
         'objWeight': 0.01,
         'softWeightInEqFrac': 100,
         'softWeightEqFrac': 100}
 
     defaults['proj_para'] = \
-        {'useTestCorr': False,    
+        {'useTestCorr': True,    
         'corrMode': 'partial',      
         'corrTestMaxSteps': 100,  
         'corrBis': 0.9,           
