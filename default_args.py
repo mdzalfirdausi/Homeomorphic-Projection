@@ -121,7 +121,7 @@ def config():
     defaults['probSize'] = [[100, 50, 50, 10000],
                             [200, 100, 100, 20000]][1]
     defaults['opfSize'] = [[30,  10000],
-                           [118, 20000]][1]
+                           [118, 20000]][0]
     defaults['testSize'] = 1024
     defaults['saveAllStats'] = False
     defaults['resultsSaveFreq'] = 1000
